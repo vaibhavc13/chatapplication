@@ -1,129 +1,93 @@
-# GrokChatX
+# GrokChatX 🤖
 
-**GrokChatX** is a modern, high-performance AI chat application designed to mimic the experience of Grok and ChatGPT. It features a robust multi-provider AI router, intelligent fallback logic, and a premium, responsive user interface.
+A modern, powerful AI chat application built with **Python** and **Streamlit**.
 
-## 🚀 Features
+GrokChatX provides a unified interface to interact with multiple AI providers, including **Grok (xAI)** and **HuggingFace**, with a focus on privacy, ease of use, and a clean UI.
 
-- **Multi-Provider AI Support**: Seamlessly integrates with Grok, OpenAI, Google Gemini, HuggingFace, and Local LLMs.
-- **Intelligent Fallback System**: Automatically switches providers if one fails (Grok → OpenAI → Gemini → HF → Local).
-- **Modern UI/UX**: Built with React, TailwindCSS, and ShadCN for a sleek, dark-mode-first aesthetic.
-- **Real-time Streaming**: Server-Sent Events (SSE) for typewriter-style message delivery.
-- **Conversation Management**: Save and organize chats with SQLite storage.
-- **Extensible Architecture**: Ready for advanced features like agents, memory, and file processing.
+![GrokChatX Demo](https://via.placeholder.com/800x400?text=GrokChatX+Streamlit+UI)
+
+## ✨ Features
+
+- **Multi-Provider Support**: 
+  - **Groq** (Llama 3.3 70B)
+- **Secure API Key Management**:
+  - Keys are loaded from `.env` file
+  - Never exposed in the UI or logs
+- **Chat History**:
+  - Persistent conversation history using SQLite
+  - Create new chats, switch between chats, and delete old ones
+- **Clean UI**:
+  - Built with Streamlit for a responsive, dark-mode friendly interface
+  - Real-time feedback and loading states
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- API Keys for [Groq](https://console.groq.com/keys) and/or [HuggingFace](https://huggingface.co/settings/tokens)
+
+### Installation
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/GrokChatX.git
+    cd GrokChatX
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    pip install -r streamlit_app/requirements.txt
+    ```
+
+3.  **Run the application**:
+    ```bash
+    python -m streamlit run streamlit_app/app.py
+    ```
+
+## ⚙️ Configuration
+
+### API Keys
+
+Configure your API keys using a `.env` file:
+
+1.  Navigate to the `streamlit_app` directory.
+2.  Create a `.env` file (or copy from `.env.example`).
+3.  Add your keys:
+    ```env
+    GROQ_API_KEY=your_groq_api_key_here
+    HF_API_KEY=your_hf_key_here
+    ```
+4.  Restart the app - keys will be loaded automatically.
+
+> **Get API Keys:**
+> - Groq: https://console.groq.com/keys
+> - HuggingFace: https://huggingface.co/settings/tokens
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework**: React (Vite)
-- **Styling**: TailwindCSS, ShadCN UI, Lucide Icons
-- **State Management**: React Hooks
-- **HTTP Client**: Native Fetch / Axios
+- **Frontend**: [Streamlit](https://streamlit.io/)
+- **AI Framework**: [LangChain](https://langchain.com/)
+- **Database**: SQLite
+- **Models**: Groq (Llama 3.3), HuggingFace (Gemma 2)
 
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: SQLite (via Prisma ORM)
-- **AI Integration**: Custom Router Service
-
-## 📋 Prerequisites
-
-- **Node.js**: v18 or higher
-- **npm**: v9 or higher
-- **API Keys**: You will need API keys for the providers you wish to use (Grok, OpenAI, Gemini, etc.).
-
-## ⚙️ Installation
-
-Clone the repository and install dependencies for both the server and client.
-
-### 1. Server Setup
-
-Navigate to the `server` directory and install dependencies:
-
-```bash
-cd server
-npm install
-```
-
-**Environment Configuration:**
-The `server/.env` file has been created. Open it and add your API keys:
-
-```env
-PORT=3001
-DATABASE_URL="file:./dev.db"
-GROK_API_KEY="your_grok_key"
-OPENAI_API_KEY="your_openai_key"
-GEMINI_API_KEY="your_gemini_key"
-HF_API_KEY="your_hf_key"
-```
-
-**Database Setup:**
-Initialize the SQLite database:
-
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-### 2. Client Setup
-
-Navigate to the `client` directory and install dependencies:
-
-```bash
-cd ../client
-npm install
-```
-
-## 🏃‍♂️ Running the Application
-
-You need to run the backend and frontend in separate terminal windows.
-
-### Start the Backend
-
-```bash
-cd server
-npm run dev
-```
-*Server will start on http://localhost:3001*
-
-### Start the Frontend
-
-```bash
-cd client
-npm run dev
-```
-*Client will start on http://localhost:5173*
-
-## 🧪 Testing
-
-- Open your browser to `http://localhost:5173`.
-- Type a message in the chat input.
-- The system will attempt to use Grok AI first. If configured keys are missing or requests fail, it will fallback through the defined order.
-
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
 GrokChatX/
-├── client/                 # React Frontend
-│   ├── src/
-│   │   ├── components/     # UI Components
-│   │   ├── lib/            # Utilities
-│   │   └── ...
-│   └── ...
-├── server/                 # Express Backend
-│   ├── prisma/             # Database Schema
-│   ├── src/
-│   │   ├── routes/         # API Routes
-│   │   ├── services/       # AI Logic & Router
-│   │   └── ...
-│   └── ...
+├── streamlit_app/
+│   ├── app.py              # Main application entry point
+│   ├── ai_service.py       # AI provider routing logic
+│   ├── db_service.py       # Database management
+│   ├── requirements.txt    # Python dependencies
+│   └── .env.example        # Example environment variables
 └── README.md               # Documentation
 ```
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-#
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
